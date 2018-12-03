@@ -29,14 +29,16 @@
 		</repository>
 		<repository>
 			<id>ale</id>
-			<url>https://ci.inria.fr/gemoc/job/ale-lang/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/</url>
+			<url>http://www.kermeta.org/ale-lang/updates/2018-11-13</url>
 			<layout>p2</layout>
 		</repository>
+		<!-- not required because the build is supposed to be launched from gemoc-studio/dev_support/full_compilation/pom.xml
 		<repository>
 			<id>gemoc-eclipse</id>
 			<layout>p2</layout>
 			<url>https://ci.eclipse.org/gemoc/job/gemoc-studio/job/master/lastSuccessfulBuild/artifact/gemoc-studio/gemoc_studio/releng/org.eclipse.gemoc.gemoc_studio.updatesite/target/repository/</url>
 		</repository>
+		-->
 	</repositories>
 
 	<modules>
