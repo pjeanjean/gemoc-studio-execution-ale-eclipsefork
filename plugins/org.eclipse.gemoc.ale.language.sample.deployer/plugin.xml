@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+<extension
+point="org.eclipse.ui.newWizards">
+      <wizard
+            canFinishEarly="true"
+            category="org.eclipse.ui.Examples/org.eclipse.gemoc.gemoc_language_workbench.samples.category"
+            class="org.eclipse.gemoc.ale.language.wb.sample.deployer.wizards.AleFsmExampleWizard"
+            finalPerspective="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective"
+            hasPages="false"
+            icon="icons/ALE.gif"
+            id="org.eclipse.gemoc.ale.language.wb.sample.deployer.fsm.wizard"
+            name="FSM Language in ALE"
+            preferredPerspectives="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective">
+         <description>
+           FSM language implementation in ALE
+         </description>
+</wizard> 
+
+      <wizard
+            canFinishEarly="true"
+            category="org.eclipse.ui.Examples/org.eclipse.gemoc.gemoc_modeling_workbench.samples.category"
+            class="org.eclipse.gemoc.ale.language.mb.sample.deployer.wizards.AleFsmExampleWizard"
+            finalPerspective="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective"
+            hasPages="false"
+            icon="icons/ALE.gif"
+            id="org.eclipse.gemoc.ale.language.wb.sample.deployer.fsm.wizard"
+            name="FSM model example for ALE engine"
+            preferredPerspectives="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective">
+         <description>
+           FSM model example for ALE
+         </description>
+</wizard> 
+</extension>
+
+</plugin>

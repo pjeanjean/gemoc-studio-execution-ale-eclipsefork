@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.eclipse.gemoc.ale.interpreted.engine</groupId>
+	<artifactId>root</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+
+	<properties>
+		<tycho.version>1.2.0</tycho.version>
+		<xtend.version>2.14.0</xtend.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<eclipse-repo.url>http://download.eclipse.org/releases/photon</eclipse-repo.url>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<tycho.scmUrl>scm:git:https://github.com/eclipse/gemoc-studio-execution-ale.git</tycho.scmUrl>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>eclipse-repo</id>
+			<url>${eclipse-repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>ale</id>
+			<url>https://ci.inria.fr/gemoc/job/ale-lang/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>gemoc-eclipse</id>
+			<layout>p2</layout>
+			<url>https://ci.eclipse.org/gemoc/job/gemoc-studio/job/master/lastSuccessfulBuild/artifact/gemoc-studio/gemoc_studio/releng/org.eclipse.gemoc.gemoc_studio.updatesite/target/repository/</url>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>plugins</module>
+		<module>releng</module>
+	</modules>
+	<build>
+		<plugins>
+			<!-- enable xtend compilation -->
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+				<version>${xtend.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>xtend-install-debug-info</goal>
+							<goal>testCompile</goal>
+							<goal>xtend-test-install-debug-info</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>xtend-gen</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- enable generation of Eclipse-SourceReferences MANIFEST header -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-sourceref-jgit</artifactId>
+						<version>${tycho.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<sourceReferences>
+						<generate>true</generate>
+					</sourceReferences>
+				</configuration>
+			</plugin>
+			<!-- enable source bundle generation -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- enable source feature generation -->
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-source-feature-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<id>source-feature</id>
+						<phase>package</phase>
+						<goals>
+							<goal>source-feature</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- required in order to embed feature and bundle sources in the update 
+				site -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<id>attached-p2-metadata</id>
+						<phase>package</phase>
+						<goals>
+							<goal>p2-metadata</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- enable plugin tests -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<useUIHarness>true</useUIHarness>
+					<useUIThread>false</useUIThread>
+					<product>org.eclipse.platform.ide</product>
+					<application>org.eclipse.ui.ide.workbench</application>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<dependency-resolution>
+						<extraRequirements>
+
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.rcp</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.xtext.sdk</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.emf.ecoretools.sdk</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+
+						</extraRequirements>
+					</dependency-resolution>
+
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher.Launcher"
+            id="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher"
+            modes="run, debug"
+            name="ALE Launcher">
+      </launchConfigurationType>
+   </extension>
+      <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher.tabs.LauncherTabGroup"
+            id="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher.tabGroup"
+            type="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher">
+      </launchConfigurationTabGroup>
+   </extension>
+      <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher"
+            icon="icons/ale-16.gif"
+            id="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.gemoc.opsemanticsview.gen">
+      <org.eclipse.gemoc.opsemanticsview.gen
+            class="org.eclipse.gemoc.ale.interpreted.engine.trace.ALEOperationalSemanticsViewGenerator">
+      </org.eclipse.gemoc.opsemanticsview.gen>
+   </extension>
+</plugin>

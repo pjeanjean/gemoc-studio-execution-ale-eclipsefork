@@ -1,0 +1,61 @@
+behavior fsm;
+
+open class StateMachine {
+	
+	State currentState;
+	String unprocessedString;
+	String consummedString;
+	String producedString ;
+	
+	
+	@main
+	def void main() {
+		while ( self.unprocessedString.size() > 0) {
+			self.currentState.step(self.unprocessedString);
+		} 
+		('unprocessed string: '+self.unprocessedString).log();
+		('processed string: '+self.consummedString).log();
+		('produced string: '+self.producedString).log();
+	}
+	
+	@init
+	def void initializeModel(String input) {
+		self.currentState := self.initialState;
+		self.unprocessedString := input;
+		self.consummedString := '';
+		self.producedString := '';
+	}
+}
+
+open class State {
+	
+	@step
+	def void step(String inputString) {
+		('input string: '+ inputString).log();
+		// Get the valid transitions
+		Sequence(fsm::Transition) validTransitions := 
+			self.outgoingTransitions
+			->select(t | inputString.startsWith(t.input));
+
+		// Fire transition
+		validTransitions->at(1).fire();
+	}
+}
+
+open class Transition {
+	
+	@step
+	def void fire() {
+		('Firing ' + self.name + ' and entering ' + self.target.name).log();
+		StateMachine fsm := self.source.owningFSM;
+		fsm.currentState := self.target;
+		fsm.producedString := fsm.producedString + self.output;
+		fsm.consummedString := fsm.consummedString + self.input;
+		if(self.input.size()+1 <= fsm.unprocessedString.size()) {
+			fsm.unprocessedString := fsm.unprocessedString.substring(self.input.size()+1);
+		}
+		else {
+			fsm.unprocessedString := '';
+		}
+	}
+}
