@@ -1,0 +1,38 @@
+////////////////////////////////////////////////////////////////
+//	Reproduce title only if not included in master documentation
+////////////////////////////////////////////////////////////////
+ifndef::includedInMaster[]
+
+= Developer Guide
+== Components Overview
+=== Execution engines
+==== ALE execution
+
+endif::[]
+
+===== ALE Interpreted Engine 
+
+footnote:[asciidoc source of this page:  https://github.com/eclipse/gemoc-studio-execution-ale/tree/master/docs/dev/ALEEngine.asciidoc.]
+
+This component implements the services  and user interface modeling workbench dedicated to the case of the JavaEngine. As seen in <<img-ComponentsOverview-devguide>>, it is based on the Execution Framework from GEMOC Framewok. 
+
+The  engine provides the class `org.eclipse.gemoc.ale.interpreted.engine/src/org/eclipse/gemoc/ale/interpreted/engine/AleEngine.java` as a base implementation for the `AbstractCommandBasedSequentialExecutionEngine.java` class.
+
+Similarly to K3, it relies on annotations in the ALE code in order to correctly do the notification calls to the Addons.
+
+This includes *@step*, *@main*, and *@init*  annotations.
+
+In order to achieve this, it registers to `org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener`.
+
+
+[[img-ALEInterpreterExecutionEngine_CD-devguide]]
+.ALE Interpreter ExecutionEngine overview
+image::images/dev/ALEInterpreterExecutionEngine_CD.png["ALE Interpreter Execution Engine overview"]
+
+////
+TODO need to check the real flow especially due to the use of ServiceCallListener and the call to "eval"
+
+[[img-ALEInterpreterExecutionEngine-typical-flow-SD-devguide]]
+.ALE Interpreter Execution Engine typical flow
+image::images/dev/ALEInterpreterExecutionEngine_Typical_flow_SD.png["ALE Interpreter ExecutionEngine typical flow"]
+////
