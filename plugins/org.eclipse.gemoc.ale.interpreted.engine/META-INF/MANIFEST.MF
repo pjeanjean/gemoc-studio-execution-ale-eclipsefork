@@ -4,7 +4,6 @@ Bundle-Version: 1.0.0.qualifier
 Export-Package: org.eclipse.gemoc.ale.interpreted.engine,
  org.eclipse.gemoc.ale.interpreted.engine.debug,
  org.eclipse.gemoc.ale.interpreted.engine.sirius
-Bundle-ActivationPolicy: lazy
 Require-Bundle: fr.inria.diverse.melange.metamodel,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
@@ -26,3 +25,6 @@ Require-Bundle: fr.inria.diverse.melange.metamodel,
  org.eclipse.sirius.common.acceleo.aql,
  org.eclipse.sirius.ecore.extender,
  org.eclipse.xtext
+Bundle-ManifestVersion: 2
+Automatic-Module-Name: org.eclipse.gemoc.ale.interpreted.engine
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

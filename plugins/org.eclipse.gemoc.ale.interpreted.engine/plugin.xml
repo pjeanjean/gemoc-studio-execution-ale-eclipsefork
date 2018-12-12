@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.gemoc.opsemanticsview.gen">
+      <org.eclipse.gemoc.opsemanticsview.gen
+            class="org.eclipse.gemoc.ale.interpreted.engine.trace.ALEOperationalSemanticsViewGenerator">
+      </org.eclipse.gemoc.opsemanticsview.gen>
+   </extension>
+</plugin>

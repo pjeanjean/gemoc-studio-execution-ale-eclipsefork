@@ -7,7 +7,7 @@
             delegate="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher.Launcher"
             id="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher"
             modes="run, debug"
-            name="ALE Launcher">
+            name="Executable model with GEMOC ALE interpreted engine">
       </launchConfigurationType>
    </extension>
       <extension
@@ -25,11 +25,5 @@
             icon="icons/ale-16.gif"
             id="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
-   </extension>
-   <extension
-         point="org.eclipse.gemoc.opsemanticsview.gen">
-      <org.eclipse.gemoc.opsemanticsview.gen
-            class="org.eclipse.gemoc.ale.interpreted.engine.trace.ALEOperationalSemanticsViewGenerator">
-      </org.eclipse.gemoc.opsemanticsview.gen>
    </extension>
 </plugin>
