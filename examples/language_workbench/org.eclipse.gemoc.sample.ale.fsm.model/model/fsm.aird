@@ -15,7 +15,7 @@
       </ownedRepresentationDescriptors>
     </ownedViews>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_EhlJAI8dEeemHKUqK1wy5A">
-      <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']"/>
+      <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']"/>
     </ownedViews>
   </viewpoint:DAnalysis>
   <diagram:DSemanticDiagram xmi:id="_3XPn0JeZEeaFTadvhWYj4Q" name="fsm">
@@ -291,7 +291,7 @@
         <labelFormat>italic</labelFormat>
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@conditionnalStyles.1/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_1:ContainerMappingImport" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']"/>
+      <actualMapping xmi:type="description_1:ContainerMappingImport" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']"/>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_RlZE0JecEeaFTadvhWYj4Q" name="name : EString" tooltipText="">
         <target xmi:type="ecore:EAttribute" href="fsm.ecore#//NamedElement/name"/>
         <semanticElements xmi:type="ecore:EAttribute" href="fsm.ecore#//NamedElement/name"/>
@@ -310,15 +310,15 @@
       <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_RlM3kJecEeaFTadvhWYj4Q" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="Liquid" foregroundColor="255,252,216">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_1:ContainerMappingImport" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']"/>
+      <actualMapping xmi:type="description_1:ContainerMappingImport" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']"/>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_FK3WkI8dEeemHKUqK1wy5A" name="step(inputString EString)">
         <target xmi:type="implementation:Method" href="fsm.dsl#//State/@methods.0"/>
         <semanticElements xmi:type="implementation:Method" href="fsm.dsl#//State/@methods.0"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_FK5LwI8dEeemHKUqK1wy5A" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
         </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']"/>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']"/>
       </ownedElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_RlOFsJecEeaFTadvhWYj4Q" name="StateMachine" tooltipText="&#xA;ERROR : The required feature 'eAttributeType' of 'EAttribute{platform:/resource/org.eclipse.gemoc.sample.ale.fsm.model/model/fsm.ecore#//StateMachine/newAttribute}' must be set&#xA;ERROR : The typed element must have a type" outgoingEdges="_RldWQ5ecEeaFTadvhWYj4Q _RlfLcJecEeaFTadvhWYj4Q _RlkD9JecEeaFTadvhWYj4Q" incomingEdges="_RlmgMJecEeaFTadvhWYj4Q" width="12" height="10">
@@ -328,51 +328,51 @@
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
       <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_572D8Y8dEeemHKUqK1wy5A" labelColor="239,41,41" description="_572D8I8dEeemHKUqK1wy5A" borderSize="1" borderSizeComputationExpression="1" borderColor="239,41,41" backgroundStyle="Liquid" foregroundColor="255,252,216"/>
-      <actualMapping xmi:type="description_1:ContainerMappingImport" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']"/>
+      <actualMapping xmi:type="description_1:ContainerMappingImport" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']"/>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_FK82II8dEeemHKUqK1wy5A" name="unprocessedString : EString">
         <target xmi:type="implementation:Attribute" href="fsm.dsl#//StateMachine/@attributes.1"/>
         <semanticElements xmi:type="implementation:Attribute" href="fsm.dsl#//StateMachine/@attributes.1"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_FK-EQI8dEeemHKUqK1wy5A" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']/@style"/>
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']/@style"/>
         </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']"/>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_FK-rUI8dEeemHKUqK1wy5A" name="consummedString : EString">
         <target xmi:type="implementation:Attribute" href="fsm.dsl#//StateMachine/@attributes.2"/>
         <semanticElements xmi:type="implementation:Attribute" href="fsm.dsl#//StateMachine/@attributes.2"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_FK_SYI8dEeemHKUqK1wy5A" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']/@style"/>
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']/@style"/>
         </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']"/>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_FK_SYY8dEeemHKUqK1wy5A" name="producedString : EString">
         <target xmi:type="implementation:Attribute" href="fsm.dsl#//StateMachine/@attributes.3"/>
         <semanticElements xmi:type="implementation:Attribute" href="fsm.dsl#//StateMachine/@attributes.3"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_FK_5cI8dEeemHKUqK1wy5A" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']/@style"/>
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']/@style"/>
         </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']"/>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_FLBHkI8dEeemHKUqK1wy5A" name="main()">
         <target xmi:type="implementation:Method" href="fsm.dsl#//StateMachine/@methods.0"/>
         <semanticElements xmi:type="implementation:Method" href="fsm.dsl#//StateMachine/@methods.0"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_FLBHkY8dEeemHKUqK1wy5A" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
         </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']"/>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_FLBuoI8dEeemHKUqK1wy5A" name="initializeModel(input EString)">
         <target xmi:type="implementation:Method" href="fsm.dsl#//StateMachine/@methods.1"/>
         <semanticElements xmi:type="implementation:Method" href="fsm.dsl#//StateMachine/@methods.1"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_FLCVsI8dEeemHKUqK1wy5A" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
         </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']"/>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']"/>
       </ownedElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_RlPT0JecEeaFTadvhWYj4Q" name="Transition" tooltipText="" outgoingEdges="_RllSEJecEeaFTadvhWYj4Q" incomingEdges="_RlfLcJecEeaFTadvhWYj4Q _RlnHQJecEeaFTadvhWYj4Q _RlnHRJecEeaFTadvhWYj4Q" width="12" height="10">
@@ -384,7 +384,7 @@
       <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_RlP64JecEeaFTadvhWYj4Q" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="Liquid" foregroundColor="255,252,216">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_1:ContainerMappingImport" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']"/>
+      <actualMapping xmi:type="description_1:ContainerMappingImport" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']"/>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_5nDc0NQqEea6TM1aH5vv-w" name="input : EString" tooltipText="">
         <target xmi:type="ecore:EAttribute" href="fsm.ecore#//Transition/input"/>
         <semanticElements xmi:type="ecore:EAttribute" href="fsm.ecore#//Transition/input"/>
@@ -406,9 +406,9 @@
         <semanticElements xmi:type="implementation:Method" href="fsm.dsl#//Transition/@methods.0"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_FLHOMI8dEeemHKUqK1wy5A" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
         </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']"/>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']"/>
       </ownedElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_RldWQ5ecEeaFTadvhWYj4Q" name="[1..1] initialState" sourceNode="_RlOFsJecEeaFTadvhWYj4Q" targetNode="_RlMQgJecEeaFTadvhWYj4Q">
@@ -514,7 +514,7 @@
     <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer"/>
     <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Package']"/>
     <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Validation']"/>
-    <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']"/>
+    <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']"/>
     <target xmi:type="ecore:EPackage" href="fsm.ecore#/"/>
   </diagram:DSemanticDiagram>
 </xmi:XMI>
