@@ -36,5 +36,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gemoc.trace.commons.model,
  org.eclipse.gemoc.xdsmlframework.api,
  org.eclipse.gemoc.xdsmlframework.ui.utils,
- org.eclipse.xtext
+ org.eclipse.xtext,
+ org.eclipse.acceleo.query
 Bundle-ActivationPolicy: lazy

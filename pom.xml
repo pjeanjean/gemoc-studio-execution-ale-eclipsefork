@@ -16,7 +16,7 @@
 		<xtend.version>2.14.0</xtend.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<eclipse-repo.url>http://download.eclipse.org/releases/photon</eclipse-repo.url>
-		<ale-repo.url>http://www.kermeta.org/ale-lang/updates/2018-12-12</ale-repo.url>
+		<ale-repo.url>http://www.kermeta.org/ale-lang/updates/2019-02-06</ale-repo.url>
 		<k3-repo.url>http://www.kermeta.org/k3/update_2018-09-05</k3-repo.url>
 		<melange-repo.url>http://melange.inria.fr/updatesite/nightly/update_2018-09-06</melange-repo.url>
 		<maven.compiler.source>1.8</maven.compiler.source>
