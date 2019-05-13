@@ -22,7 +22,7 @@
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
             configTypeID="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher"
-            icon="icons/ale-16.gif"
+            icon="icons/gemoc-model-ale-icon-16.png"
             id="org.eclipse.gemoc.ale.interpreted.engine.ui.launcher.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
    </extension>
