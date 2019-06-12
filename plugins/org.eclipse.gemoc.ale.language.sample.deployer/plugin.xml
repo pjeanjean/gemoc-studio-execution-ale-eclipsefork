@@ -10,12 +10,12 @@ point="org.eclipse.ui.newWizards">
             class="org.eclipse.gemoc.ale.language.wb.sample.deployer.wizards.AleFsmExampleWizard"
             finalPerspective="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective"
             hasPages="false"
-            icon="icons/ALE.gif"
+            icon="icons/language-16.png"
             id="org.eclipse.gemoc.ale.language.wb.sample.deployer.fsm.wizard"
-            name="FSM Language in ALE"
+            name="GEMOC ALEFSM Language"
             preferredPerspectives="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective">
          <description>
-           FSM language implementation in ALE
+           FSM (Finite State Machine) language implementation using ALE GEMOC Engine
          </description>
 </wizard> 
 
@@ -25,12 +25,12 @@ point="org.eclipse.ui.newWizards">
             class="org.eclipse.gemoc.ale.language.mb.sample.deployer.wizards.AleFsmExampleWizard"
             finalPerspective="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective"
             hasPages="false"
-            icon="icons/ALE.gif"
+            icon="icons/gemoc-model-ale-icon-16.png"
             id="org.eclipse.gemoc.ale.language.wb.sample.deployer.fsm.wizard"
-            name="FSM model example for ALE engine"
+            name="GEMOC models for ALEFSM Language"
             preferredPerspectives="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective">
          <description>
-           FSM model example for ALE
+           FSM model example for ALEFSM language (using ALE GEMOC Engine)
          </description>
 </wizard> 
 </extension>
