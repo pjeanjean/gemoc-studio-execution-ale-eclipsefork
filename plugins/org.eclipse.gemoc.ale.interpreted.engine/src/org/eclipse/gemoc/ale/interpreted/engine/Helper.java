@@ -1,5 +1,8 @@
 package org.eclipse.gemoc.ale.interpreted.engine;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +24,50 @@ public class Helper {
 	         .map(elem -> URI.createFileURI(WorkbenchDsl.convertToFile(elem)).toString())
 	         .collect(Collectors.toList());
 		
-		return new WorkbenchDsl(ecoreFileUris,aleUris);
+		WorkbenchDsl res = new WorkbenchDsl(new ArrayList<String>(),new ArrayList<String>());
+		try {
+			res = new WorkbenchDsl(ecoreFileUris,aleUris);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	/**
+	 * Check language's Ecore & ALE URIs
+	 */
+	public static List<String> validate(org.eclipse.gemoc.dsl.Dsl language) {
+		List<String> errors = new ArrayList<>();
+		
+		List<String> ecoreUris = getEcoreUris(language);
+		List<String> aleUris = getAleUris(language);
+		
+		for(String uri : ecoreUris) {
+			boolean isPresent = false;
+			try {
+				isPresent = Files.exists(Paths.get(URI.createFileURI(WorkbenchDsl.convertToFile(uri)).toString()));
+			}
+			catch(Exception e) {}
+			
+			if(!isPresent) {
+				errors.add("Can't find: " + uri + " (declared in the language '" + language.getName() + "'");
+			}
+		}
+		
+		for(String uri : aleUris) {
+			boolean isPresent = false;
+			try {
+				isPresent = Files.exists(Paths.get(URI.createFileURI(WorkbenchDsl.convertToFile(uri)).toString()));
+			}
+			catch(Exception e) {}
+			
+			if(!isPresent) {
+				errors.add("Can't find: " + uri + " (declared in the language '" + language.getName() + "'");
+			}
+		}
+		
+		return errors;
 	}
 	
 	public static List<String> getEcoreUris(org.eclipse.gemoc.dsl.Dsl language) {

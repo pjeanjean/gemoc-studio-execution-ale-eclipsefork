@@ -142,6 +142,18 @@ public class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 			_entryPointModelElementLabel.setText("");
 			_entryPointMethodText.setText(runConfiguration.getExecutionEntryPoint());
 			updateMainElementName();
+			
+			org.eclipse.gemoc.dsl.Dsl language = DslHelper.load(_languageCombo.getText());
+			if(language != null) {
+				List<String> errors = Helper.validate(language);
+				for(String error : errors) {
+					setErrorMessage(error);
+				}
+			}
+			else {
+				setErrorMessage("Can't find the language: '" + _languageCombo.getText() + "'");
+			}
+			
 		} catch (CoreException e) {
 			Activator.error(e.getMessage(), e);
 		}
@@ -490,17 +502,23 @@ public class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 				
 				Dsl environment = Helper.gemocDslToAleDsl(language);
 				ALEInterpreter interpreter = new ALEInterpreter();
-				List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-				Optional<Method> initOperation =
-					parsedSemantics
-					.stream()
-					.filter(sem -> sem.getRoot() != null)
-					.map(sem -> sem.getRoot())
-					.flatMap(unit -> unit.getClassExtensions().stream())
-					.filter(xtdCls -> xtdCls.getBaseClass().getName().equals(tagetClassName))
-					.flatMap(xtdCls -> xtdCls.getMethods().stream())
-					.filter(op -> op.getTags().contains("init"))
-					.findFirst();
+				Optional<Method> initOperation = Optional.empty();
+				try {
+					List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+					initOperation =
+							parsedSemantics
+							.stream()
+							.filter(sem -> sem.getRoot() != null)
+							.map(sem -> sem.getRoot())
+							.flatMap(unit -> unit.getClassExtensions().stream())
+							.filter(xtdCls -> xtdCls.getBaseClass().getName().equals(tagetClassName))
+							.flatMap(xtdCls -> xtdCls.getMethods().stream())
+							.filter(op -> op.getTags().contains("init"))
+							.findFirst();
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
 				
 				if(initOperation.isPresent()){
 					return (new MethodLabelProvider()).getText(initOperation.get());
