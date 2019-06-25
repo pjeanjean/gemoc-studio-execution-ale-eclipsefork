@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -123,10 +124,20 @@ public class AleEngine extends AbstractSequentialExecutionEngine<SequentialModel
 			
 			Method entryPoint = getMainOp().orElse(null);
 			if(interpreter.getCurrentEngine() != null) { //We ran @init method
-				interpreter.getCurrentEngine().eval(caller, entryPoint, Arrays.asList());
+				EvaluationResult res = interpreter.getCurrentEngine().eval(caller, entryPoint, Arrays.asList());
+				interpreter.getLogger().diagnosticForHuman();
+				
+				if(res.getDiagnostic().getMessage() != null) {
+					System.out.println(res.getDiagnostic().getMessage());
+				}
 			}
 			else {
 				IEvaluationResult res = interpreter.eval(caller, entryPoint, Arrays.asList(), parsedSemantics);
+				interpreter.getLogger().diagnosticForHuman();
+				
+				if(res.getDiagnostic().getMessage() != null) {
+					System.out.println(res.getDiagnostic().getMessage());
+				}
 			}
 			
 			if(traceAddon != null) {
@@ -142,6 +153,11 @@ public class AleEngine extends AbstractSequentialExecutionEngine<SequentialModel
 		
 		if(interpreter != null && parsedSemantics != null && init.isPresent()) {
 			IEvaluationResult res = interpreter.eval(caller, init.get(), args, parsedSemantics);
+			interpreter.getLogger().diagnosticForHuman();
+			
+			if(res.getDiagnostic().getMessage() != null) {
+				System.out.println(res.getDiagnostic().getMessage());
+			}
 		}
 	}
 
