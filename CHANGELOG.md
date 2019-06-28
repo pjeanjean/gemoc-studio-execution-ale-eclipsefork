@@ -1,6 +1,6 @@
 # Changelog
 
-## v3.1.0-glose (25/06/2019)
+## v3.1.0-20190627 (27/06/2019)
 
 #### Enhancements:
 
@@ -11,7 +11,13 @@
 
 #### Bug Fixes:
 
+- [**bug**] Fix: print error log for model executions [#18](https://github.com/eclipse/gemoc-studio-execution-ale/pull/18)
+- [**bug**] Fix issue #13 [#16](https://github.com/eclipse/gemoc-studio-execution-ale/pull/16)
 - [**bug**] Update references to ale.odesign in the aird of the example model [#4](https://github.com/eclipse/gemoc-studio-execution-ale/pull/4)
+
+#### Version upgrades
+
+- [**bump**] Bump ALE version to 2019-06-24 [#19](https://github.com/eclipse/gemoc-studio-execution-ale/pull/19)
 
 #### Release Engineering
 
