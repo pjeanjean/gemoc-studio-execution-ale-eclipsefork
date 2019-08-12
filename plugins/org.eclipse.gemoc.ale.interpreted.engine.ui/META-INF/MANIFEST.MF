@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Gemoc ALE Engine UI
+Bundle-Name: GEMOC ALE Engine UI
 Bundle-SymbolicName: org.eclipse.gemoc.ale.interpreted.engine.ui;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.1.qualifier
 Automatic-Module-Name: org.eclipse.gemoc.ale.interpreted.engine.ui
 Bundle-Activator: org.eclipse.gemoc.ale.interpreted.engine.ui.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

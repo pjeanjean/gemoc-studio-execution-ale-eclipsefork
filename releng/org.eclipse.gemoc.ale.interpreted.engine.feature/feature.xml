@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.gemoc.ale.interpreted.engine.feature"
-      label="ALE Gemoc Engine"
-      version="0.0.1.qualifier"
+      label="GEMOC ALE Engine"
+      version="1.0.1.qualifier"
       provider-name="Inria/Obeo">
 
    <plugin
@@ -19,11 +19,11 @@
          version="0.0.0"
          unpack="false"/>
 
-    <plugin
-      id="org.eclipse.gemoc.ale.language.sample.deployer"
-      download-size="0"
-      install-size="0"
-      version="0.0.0"
-      unpack="false"/>
+   <plugin
+         id="org.eclipse.gemoc.ale.language.sample.deployer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

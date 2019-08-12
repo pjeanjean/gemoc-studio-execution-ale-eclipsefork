@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.gemoc.ale.interpreted.engine.feature_0.0.1.qualifier.jar" id="org.eclipse.gemoc.ale.interpreted.engine.feature" version="0.0.1.qualifier">
-      <category name="ALE Gemoc Engine"/>
+   <feature url="features/org.eclipse.gemoc.ale.interpreted.engine.feature_1.0.1.qualifier.jar" id="org.eclipse.gemoc.ale.interpreted.engine.feature" version="1.0.1.qualifier">
+      <category name="ALE GEMOC Engine"/>
    </feature>
-   <feature url="features/org.eclipse.gemoc.ale.interpreted.engine.feature.source_0.0.1.qualifier.jar" id="org.eclipse.gemoc.ale.interpreted.engine.feature.source" version="0.0.1.qualifier">
-      <category name="ALE Gemoc Engine"/>
+   <feature url="features/org.eclipse.gemoc.ale.interpreted.engine.feature.source_1.0.1.qualifier.jar" id="org.eclipse.gemoc.ale.interpreted.engine.feature.source" version="1.0.1.qualifier">
+      <category name="ALE GEMOC Engine"/>
    </feature>
-   <category-def name="ALE Gemoc Engine" label="ALE Gemoc Engine"/>
+   <category-def name="ALE GEMOC Engine" label="ALE GEMOC Engine"/>
 </site>
