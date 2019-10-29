@@ -27,7 +27,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 
 public class AleDynamicAccessor implements IDynamicPartAccessor{
 
-	Map<EClass, EClass> baseToRuntime;
+	DynamicFeatureRegistry dynamicFeatures;
 	
 	ALEInterpreter interpreter;
 	
@@ -52,7 +52,6 @@ public class AleDynamicAccessor implements IDynamicPartAccessor{
 		.collect(Collectors.toList());
 		
 		
-		this.baseToRuntime = RuntimeInstanceHelper.getBaseToRuntime(allModelUnits,domain);
 		this.interpreter = interpreter;
 	}
 	
@@ -64,7 +63,9 @@ public class AleDynamicAccessor implements IDynamicPartAccessor{
 			return result;
 		}
 		
-		EClass runtimePart = baseToRuntime.get(eObject.eClass());
+		if (dynamicFeatures == null)
+			dynamicFeatures = interpreter.getCurrentEngine().getEvalEnvironment().getFeatureAccess();
+		EClass runtimePart = dynamicFeatures.getRuntimeExtensionClass(eObject);
 		
 		/*
 		 * Retrieve dynamic features defined in re-opened class from ALE interpreter internal
