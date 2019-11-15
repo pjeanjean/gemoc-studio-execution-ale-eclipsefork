@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter.ClosedALEInterpreterException;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
@@ -133,12 +134,16 @@ public class AleEngine extends AbstractSequentialExecutionEngine<SequentialModel
 				}
 			}
 			else {
-				IEvaluationResult res = interpreter.eval(caller, entryPoint, Arrays.asList(), parsedSemantics);
-				interpreter.getLogger().diagnosticForHuman();
-				
-				if(res.getDiagnostic().getMessage() != null) {
-					System.out.println(res.getDiagnostic().getMessage());
-					throw new RuntimeException(res.getDiagnostic().getMessage());
+				try {
+					IEvaluationResult res = interpreter.eval(caller, entryPoint, Arrays.asList(), parsedSemantics);
+					interpreter.getLogger().diagnosticForHuman();
+					
+					if(res.getDiagnostic().getMessage() != null) {
+						System.out.println(res.getDiagnostic().getMessage());
+						throw new RuntimeException(res.getDiagnostic().getMessage());
+					}
+				} catch (ClosedALEInterpreterException e) {
+					throw new RuntimeException(e.getMessage(),e);
 				}
 			}
 			
@@ -154,16 +159,22 @@ public class AleEngine extends AbstractSequentialExecutionEngine<SequentialModel
 		Optional<Method> init = getInitOp();
 		
 		if(interpreter != null && parsedSemantics != null && init.isPresent()) {
-			IEvaluationResult res = interpreter.eval(caller, init.get(), args, parsedSemantics);
-			
-			if(res.getDiagnostic().getMessage() != null) {
-				System.out.println(res.getDiagnostic().getMessage());
-				interpreter.getLogger().notify(res.getDiagnostic());
-				interpreter.getLogger().diagnosticForHuman();
-				throw new RuntimeException(res.getDiagnostic().getMessage());
-			} else {
-				interpreter.getLogger().diagnosticForHuman();
+			IEvaluationResult res;
+			try {
+				res = interpreter.eval(caller, init.get(), args, parsedSemantics);
+				if(res.getDiagnostic().getMessage() != null) {
+					System.out.println(res.getDiagnostic().getMessage());
+					interpreter.getLogger().notify(res.getDiagnostic());
+					interpreter.getLogger().diagnosticForHuman();
+					throw new RuntimeException(res.getDiagnostic().getMessage());
+				} else {
+					interpreter.getLogger().diagnosticForHuman();
+				}
+			} catch (ClosedALEInterpreterException e) {
+				throw new RuntimeException(e.getMessage(),e);
 			}
+			
+			
 		}
 	}
 
@@ -283,4 +294,12 @@ public class AleEngine extends AbstractSequentialExecutionEngine<SequentialModel
 		}
 		return Optional.empty();
 	}
+
+	@Override
+	protected void finishDispose() {
+		super.finishDispose();
+		interpreter.close();
+	}
+	
+	
 }
