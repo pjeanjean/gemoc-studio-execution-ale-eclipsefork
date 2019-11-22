@@ -32,11 +32,11 @@ import org.eclipse.gemoc.commons.eclipse.emf.URIHelper;
 import org.eclipse.gemoc.commons.eclipse.ui.dialogs.SelectAnyIFileDialog;
 import org.eclipse.gemoc.dsl.debug.ide.launch.AbstractDSLLaunchConfigurationDelegate;
 import org.eclipse.gemoc.dsl.debug.ide.sirius.ui.launch.AbstractDSLLaunchConfigurationDelegateSiriusUI;
-import org.eclipse.gemoc.execution.sequential.javaengine.ui.Activator;
-import org.eclipse.gemoc.execution.sequential.javaxdsml.api.extensions.languages.SequentialLanguageDefinitionExtensionPoint;
-import org.eclipse.gemoc.executionframework.engine.commons.DslHelper;
 import org.eclipse.gemoc.execution.sequential.javaengine.K3RunConfiguration;
+import org.eclipse.gemoc.execution.sequential.javaengine.ui.Activator;
+import org.eclipse.gemoc.executionframework.engine.commons.DslHelper;
 import org.eclipse.gemoc.executionframework.ui.utils.ENamedElementQualifiedNameLabelProvider;
+import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.xdsmlframework.ui.utils.dialogs.SelectAIRDIFileDialog;
 import org.eclipse.gemoc.xdsmlframework.ui.utils.dialogs.SelectAnyEObjectDialog;
 import org.eclipse.jface.dialogs.Dialog;
@@ -535,7 +535,7 @@ public class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 		List<String> languagesNames = new ArrayList<String>();
 		IConfigurationElement[] languages = Platform
 				.getExtensionRegistry().getConfigurationElementsFor(
-						SequentialLanguageDefinitionExtensionPoint.GEMOC_SEQUENTIAL_LANGUAGE_EXTENSION_POINT);
+						LanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT);
 		for (IConfigurationElement lang : languages) {
 			String xdsmlPath = lang.getAttribute("xdsmlFilePath");
 			String xdsmlName = lang.getAttribute("name");
