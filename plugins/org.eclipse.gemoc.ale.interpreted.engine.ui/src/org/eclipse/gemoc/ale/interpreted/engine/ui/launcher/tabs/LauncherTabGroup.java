@@ -12,9 +12,11 @@ public class LauncherTabGroup extends AbstractLaunchConfigurationTabGroup {
 
 	@Override
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] {
-				new LaunchConfigurationMainTab(),
-				new LaunchConfigurationBackendsTab(), new CommonTab() };
+		LaunchConfigurationMainTab mainTab = new LaunchConfigurationMainTab();
+		LaunchConfigurationBackendsTab addonTab = new LaunchConfigurationBackendsTab();
+		mainTab.registerLaunchLanguageSelectionListener(addonTab);
+		
+		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] { mainTab, addonTab, new CommonTab() };
 		setTabs(tabs);
 
 	}
