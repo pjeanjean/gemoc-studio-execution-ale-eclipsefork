@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2018, 2020 Inria and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Obeo - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.gemoc.ale.interpreted.engine;
 
 import java.util.ArrayList;
@@ -23,9 +33,9 @@ import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.gemoc.executionframework.engine.commons.DslHelper;
+import org.eclipse.gemoc.executionframework.engine.commons.GenericModelExecutionContext;
+import org.eclipse.gemoc.executionframework.engine.commons.sequential.SequentialRunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.core.AbstractSequentialExecutionEngine;
-import org.eclipse.gemoc.execution.sequential.javaengine.K3RunConfiguration;
-import org.eclipse.gemoc.execution.sequential.javaengine.SequentialModelExecutionContext;
 import org.eclipse.gemoc.executionframework.extensions.sirius.services.IModelAnimator;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.trace.gemoc.api.IMultiDimensionalTraceAddon;
@@ -35,7 +45,7 @@ import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnosti
 
 import com.google.common.collect.Lists;
 
-public class AleEngine extends AbstractSequentialExecutionEngine<SequentialModelExecutionContext<K3RunConfiguration>, K3RunConfiguration> {
+public class AleEngine extends AbstractSequentialExecutionEngine<org.eclipse.gemoc.executionframework.engine.commons.GenericModelExecutionContext<SequentialRunConfiguration>, SequentialRunConfiguration> {
 
 	/**
 	 * Root of the model
@@ -179,14 +189,14 @@ public class AleEngine extends AbstractSequentialExecutionEngine<SequentialModel
 	}
 
 	@Override
-	protected void prepareEntryPoint(SequentialModelExecutionContext<K3RunConfiguration> executionContext) {
+	protected void prepareEntryPoint(GenericModelExecutionContext<SequentialRunConfiguration> executionContext) {
 		
 	}
 
 	@Override
-	protected void prepareInitializeModel(SequentialModelExecutionContext<K3RunConfiguration> executionContext) {
-		if(executionContext.getRunConfiguration() instanceof K3RunConfiguration) {
-			K3RunConfiguration runConf = (K3RunConfiguration) executionContext.getRunConfiguration();
+	protected void prepareInitializeModel(GenericModelExecutionContext<SequentialRunConfiguration> executionContext) {
+		if(executionContext.getRunConfiguration() instanceof SequentialRunConfiguration) {
+			SequentialRunConfiguration runConf = (SequentialRunConfiguration) executionContext.getRunConfiguration();
 			
 			// caller
 			Resource inputModel = executionContext.getResourceModel();

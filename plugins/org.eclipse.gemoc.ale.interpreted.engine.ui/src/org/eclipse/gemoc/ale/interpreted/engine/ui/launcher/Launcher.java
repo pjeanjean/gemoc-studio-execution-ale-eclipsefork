@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2018, 2020 Inria and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Obeo - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.gemoc.ale.interpreted.engine.ui.launcher;
 
 import java.util.Arrays;
@@ -9,7 +19,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gemoc.ale.interpreted.engine.AleEngine;
 import org.eclipse.gemoc.ale.interpreted.engine.debug.AleDynamicAccessor;
@@ -19,36 +28,27 @@ import org.eclipse.gemoc.commons.eclipse.messagingsystem.api.MessagingSystem;
 import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
 import org.eclipse.gemoc.dsl.debug.ide.IDSLDebugger;
 import org.eclipse.gemoc.dsl.debug.ide.event.DSLDebugEventDispatcher;
-import org.eclipse.gemoc.execution.sequential.javaengine.SequentialModelExecutionContext;
+import org.eclipse.gemoc.executionframework.debugger.AbstractGemocDebugger;
 import org.eclipse.gemoc.executionframework.debugger.GenericSequentialModelDebugger;
 import org.eclipse.gemoc.executionframework.debugger.OmniscientGenericSequentialModelDebugger;
-import org.eclipse.gemoc.executionframework.debugger.AbstractGemocDebugger;
-import org.eclipse.gemoc.executionframework.debugger.AnnotationMutableFieldExtractor;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
-import org.eclipse.gemoc.executionframework.engine.commons.AbstractModelExecutionContext;
-import org.eclipse.gemoc.execution.sequential.javaengine.K3RunConfiguration;
+import org.eclipse.gemoc.executionframework.engine.commons.GenericModelExecutionContext;
+import org.eclipse.gemoc.executionframework.engine.commons.sequential.SequentialRunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.ui.launcher.AbstractSequentialGemocLauncher;
-import org.eclipse.gemoc.executionframework.extensions.sirius.debug.DebugSessionFactory;
 import org.eclipse.gemoc.executionframework.ui.views.engine.EnginesStatusView;
-import org.eclipse.gemoc.trace.commons.model.trace.MSEOccurrence;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
-//import org.eclipse.gemoc.trace.gemoc.api.IModelAccessor;
-import org.eclipse.gemoc.trace.gemoc.api.IMultiDimensionalTraceAddon;
 import org.eclipse.gemoc.trace.gemoc.traceaddon.GenericTraceEngineAddon;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
-import org.eclipse.sirius.business.api.session.Session;
-import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.common.tools.api.interpreter.CompoundInterpreter;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreter;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterProvider;
 
-public class Launcher extends AbstractSequentialGemocLauncher<SequentialModelExecutionContext<K3RunConfiguration>, K3RunConfiguration> {
+public class Launcher extends AbstractSequentialGemocLauncher<GenericModelExecutionContext<SequentialRunConfiguration>, SequentialRunConfiguration> {
 
 	public final static String TYPE_ID = Activator.PLUGIN_ID + ".launcher";
 	
 	@Override
-	protected AleEngine createExecutionEngine(K3RunConfiguration runConfiguration, ExecutionMode executionMode)
+	protected AleEngine createExecutionEngine(SequentialRunConfiguration runConfiguration, ExecutionMode executionMode)
 			throws CoreException, EngineContextException {
 		
 		AleEngine engine = new AleEngine();
@@ -65,7 +65,7 @@ public class Launcher extends AbstractSequentialGemocLauncher<SequentialModelExe
 		IInterpreterProvider provider = new ALEInterpreterProvider(engine);
 		CompoundInterpreter.INSTANCE.registerProvider(provider); //Register ALE for Sirius
 		
-		SequentialModelExecutionContext<K3RunConfiguration> executioncontext = new SequentialModelExecutionContext<K3RunConfiguration>(runConfiguration, executionMode);
+		GenericModelExecutionContext<SequentialRunConfiguration> executioncontext = new GenericModelExecutionContext<SequentialRunConfiguration>(runConfiguration, executionMode);
 		executioncontext.initializeResourceModel(); // load model
 		engine.initialize(executioncontext);
 		
@@ -79,8 +79,8 @@ public class Launcher extends AbstractSequentialGemocLauncher<SequentialModelExe
 	}
 
 	@Override
-	protected K3RunConfiguration parseLaunchConfiguration(ILaunchConfiguration configuration) throws CoreException {
-		return new K3RunConfiguration(configuration);
+	protected SequentialRunConfiguration parseLaunchConfiguration(ILaunchConfiguration configuration) throws CoreException {
+		return new SequentialRunConfiguration(configuration);
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public class Launcher extends AbstractSequentialGemocLauncher<SequentialModelExe
 		// If in the launch configuration it is asked to pause at the start,
 		// we add this dummy break
 		try {
-			if (configuration.getAttribute(K3RunConfiguration.LAUNCH_BREAK_START, false)) {
+			if (configuration.getAttribute(SequentialRunConfiguration.LAUNCH_BREAK_START, false)) {
 				debugger.addPredicateBreak(new BiPredicate<IExecutionEngine<?>, Step<?>>() {
 					@Override
 					public boolean test(IExecutionEngine<?> t, Step<?> u) {
