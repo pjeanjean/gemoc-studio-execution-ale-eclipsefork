@@ -144,7 +144,7 @@ public class Launcher extends AbstractSequentialGemocLauncher<SequentialModelExe
 
 	@Override
 	protected String getDebugJobName(ILaunchConfiguration configuration, EObject firstInstruction) {
-		return "Gemoc debug job";
+		return "GEMOC Debug Job";
 	}
 
 	@Override
@@ -155,7 +155,7 @@ public class Launcher extends AbstractSequentialGemocLauncher<SequentialModelExe
 	@Override
 	public String getModelIdentifier() {
 		//FIXME: Should be retrieve by IExecutionContext.getRunConfiguration().getDebugModelID()
-		return "org.eclipse.gemoc.execution.sequential.javaengine.ui.debugModel";
+		return Activator.DEBUG_MODEL_ID;
 	}
 	
 }
