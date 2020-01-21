@@ -138,6 +138,7 @@ public class Launcher extends AbstractSequentialGemocLauncher<GenericModelExecut
 			Activator.error(e.getMessage(), e);
 		}
 
+		Activator.getDefault().getMessaggingSystem().debug("Enabled implicit addon: "+debugger.getAddonID(), getPluginID());
 		engine.getExecutionContext().getExecutionPlatform().addEngineAddon(debugger);
 		return debugger;
 	}
