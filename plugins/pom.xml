@@ -20,6 +20,7 @@
 		<module>org.eclipse.gemoc.ale.interpreted.engine</module>
 		<module>org.eclipse.gemoc.ale.interpreted.engine.ui</module>
 		<module>org.eclipse.gemoc.ale.language.sample.deployer</module>
+		<module>org.eclipse.gemoc.ale.language.metaprogramming</module>
 	</modules>
 
 	<build>
