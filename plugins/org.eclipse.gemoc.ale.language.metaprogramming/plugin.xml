@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.gemoc.gemoc_language_workbench.metaprog">
       <approach
-            name="ale"
+            name="org.eclipse.gemoc.metaprog.ale"
             validator="org.eclipse.gemoc.ale.language.metaprogramming.AleRuleProvider">
       </approach>
    </extension>
