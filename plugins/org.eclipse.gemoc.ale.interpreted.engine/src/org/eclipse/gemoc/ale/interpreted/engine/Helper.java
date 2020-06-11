@@ -1,13 +1,25 @@
+/*******************************************************************************
+ * Copyright (c) 2017, 2020 Inria and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Inria - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.gemoc.ale.interpreted.engine;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl;
 import org.eclipse.gemoc.dsl.Entry;
@@ -44,30 +56,35 @@ public class Helper {
 		List<String> aleUris = getAleUris(language);
 		
 		for(String uri : ecoreUris) {
-			boolean isPresent = false;
-			try {
-				isPresent = Files.exists(Paths.get(URI.createFileURI(WorkbenchDsl.convertToFile(uri)).toString()));
-			}
-			catch(Exception e) {}
-			
-			if(!isPresent) {
+			if(!checkExistURI(uri)) {
 				errors.add("Can't find: " + uri + " (declared in the language '" + language.getName() + "'");
 			}
 		}
 		
 		for(String uri : aleUris) {
-			boolean isPresent = false;
-			try {
-				isPresent = Files.exists(Paths.get(URI.createFileURI(WorkbenchDsl.convertToFile(uri)).toString()));
-			}
-			catch(Exception e) {}
-			
-			if(!isPresent) {
+			if(!checkExistURI(uri)) {
 				errors.add("Can't find: " + uri + " (declared in the language '" + language.getName() + "'");
 			}
 		}
 		
 		return errors;
+	}
+	
+	public static boolean checkExistURI(String uriString) {
+		URI uri = URI.createURI(uriString);
+		IWorkspace ws = ResourcesPlugin.getWorkspace();
+		if(ws != null) {
+			IResource file = ws.getRoot().findMember(uri.toPlatformString(true));
+			if(file != null) {
+				return true;
+			}
+		}
+		boolean isPresent = false;
+		try {
+			isPresent = Files.exists(Paths.get(URI.createFileURI(WorkbenchDsl.convertToFile(uriString)).toString()));
+		}
+		catch(Exception e) {}
+		return isPresent;
 	}
 	
 	public static List<String> getEcoreUris(org.eclipse.gemoc.dsl.Dsl language) {

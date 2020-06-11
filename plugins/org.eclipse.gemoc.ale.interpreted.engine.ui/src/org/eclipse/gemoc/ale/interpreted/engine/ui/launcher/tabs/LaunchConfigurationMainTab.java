@@ -166,6 +166,37 @@ public class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 	}
 
 	@Override
+	public boolean isValid(ILaunchConfiguration launchConfig) {
+		boolean isValid = super.isValid(launchConfig);
+		setErrorMessage(null);
+		setMessage(null);
+		org.eclipse.gemoc.dsl.Dsl language = DslHelper.load(_languageCombo.getText());
+		if (language != null) {
+			List<String> errors = Helper.validate(language);
+			for (String error : errors) {
+				isValid =  false;
+				setErrorMessage(error);
+			}
+		}
+		try {
+			Resource model = getModel();
+			if (model == null) {
+				setErrorMessage("Please select a model to execute.");
+			} else if (_languageCombo.getText() == null || _languageCombo.getText().isEmpty()) {
+					setErrorMessage("Please select a language.");
+			} else if (_entryPointMethodText.getText() == null || _entryPointMethodText.getText().equals("")) {
+				setErrorMessage("Please select a main method.");
+			} else if (_entryPointModelElementText.getText() == null || _entryPointModelElementText.getText().isEmpty()) {
+				setErrorMessage("Please select the main model element.");
+			}
+		} catch (Exception e) {
+			setErrorMessage("Please select a model to execute.");
+		}
+		return isValid;
+		
+	}
+
+	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(AbstractDSLLaunchConfigurationDelegate.RESOURCE_URI,
 				this._modelLocationText.getText());
