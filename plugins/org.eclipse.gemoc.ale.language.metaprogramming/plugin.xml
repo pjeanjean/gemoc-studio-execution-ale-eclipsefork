@@ -5,8 +5,7 @@
          point="org.eclipse.gemoc.gemoc_language_workbench.metaprog">
       <approach
             dependencies="org.eclipse.gemoc.metaprog.ecore"
-            name="org.eclipse.gemoc.metaprog.ale"
-            validator="org.eclipse.gemoc.ale.language.metaprogramming.AleRuleProvider">
+            name="org.eclipse.gemoc.metaprog.ale">
          <languageComponent
                description="Entry used to define the ale file for the DSL"
                name="ale"
