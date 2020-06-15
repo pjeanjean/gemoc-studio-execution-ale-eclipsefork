@@ -12,9 +12,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecoretools.ale.Operation;
 import org.eclipse.emf.ecoretools.ale.Tag;
 import org.eclipse.emf.ecoretools.ale.Unit;
-import org.eclipse.gemoc.dsl.Dsl;
 import org.eclipse.gemoc.dsl.Entry;
-import org.eclipse.gemoc.xdsmlframework.api.extensions.metaprog.IRule;
+import org.eclipse.gemoc.xdsmlframework.api.extensions.metaprog.ILanguageComponentValidator;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.metaprog.Message;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.metaprog.Severity;
 
@@ -24,26 +23,11 @@ import org.eclipse.gemoc.xdsmlframework.api.extensions.metaprog.Severity;
  * @author GUEGUEN Ronan
  *
  */
-public class AleRule implements IRule{
+public class AleRule implements ILanguageComponentValidator{
+
 
 	@Override
-	public Message execute(Dsl dsl) {
-		
-		ArrayList<String> entriesNames = new ArrayList<String>();
-		
-		for (Entry e : dsl.getEntries()) {
-			entriesNames.add(e.getKey());
-		}
-		
-		if(!entriesNames.contains("ale")) {
-			return (new Message("Missing entry \"ale\"", Severity.ERROR));
-		}
-			
-		return (new Message("",Severity.DEFAULT));
-	}
-
-	@Override
-	public Message execute(Entry entry) {
+	public Message validate(Entry entry) {
 		if("ale".matches(entry.getKey())) {
 			URI uri = URI.createURI(entry.getValue());
 			

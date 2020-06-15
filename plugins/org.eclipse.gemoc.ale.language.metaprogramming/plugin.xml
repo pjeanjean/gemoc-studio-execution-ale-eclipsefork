@@ -8,9 +8,10 @@
             name="org.eclipse.gemoc.metaprog.ale"
             validator="org.eclipse.gemoc.ale.language.metaprogramming.AleRuleProvider">
          <languageComponent
-               description="Entry used to define the ale file used in for the language."
+               description="Entry used to define the ale file for the DSL"
                name="ale"
-               optional="false">
+               optional="false"
+               validationRule="org.eclipse.gemoc.ale.language.metaprogramming.AleRule">
          </languageComponent>
       </approach>
    </extension>
