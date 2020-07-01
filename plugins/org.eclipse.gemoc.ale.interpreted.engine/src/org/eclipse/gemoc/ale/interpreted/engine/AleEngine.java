@@ -32,7 +32,8 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.gemoc.executionframework.engine.commons.DslHelper;
-import org.eclipse.gemoc.executionframework.engine.commons.GenericModelExecutionContext;
+import org.eclipse.gemoc.executionframework.engine.commons.sequential.ISequentialModelExecutionContext;
+import org.eclipse.gemoc.executionframework.engine.commons.sequential.ISequentialRunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.commons.sequential.SequentialRunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.core.AbstractSequentialExecutionEngine;
 import org.eclipse.gemoc.executionframework.extensions.sirius.services.IModelAnimator;
@@ -44,7 +45,7 @@ import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 
 import com.google.common.collect.Lists;
 
-public class AleEngine extends AbstractSequentialExecutionEngine<org.eclipse.gemoc.executionframework.engine.commons.GenericModelExecutionContext<SequentialRunConfiguration>, SequentialRunConfiguration> {
+public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialModelExecutionContext<?>, ISequentialRunConfiguration> {
 
 	/**
 	 * Root of the model
@@ -190,12 +191,12 @@ public class AleEngine extends AbstractSequentialExecutionEngine<org.eclipse.gem
 	}
 
 	@Override
-	protected void prepareEntryPoint(GenericModelExecutionContext<SequentialRunConfiguration> executionContext) {
+	protected void prepareEntryPoint(ISequentialModelExecutionContext<?> executionContext) {
 		
 	}
 
 	@Override
-	protected void prepareInitializeModel(GenericModelExecutionContext<SequentialRunConfiguration> executionContext) {
+	protected void prepareInitializeModel(ISequentialModelExecutionContext<?> executionContext) {
 		if(executionContext.getRunConfiguration() instanceof SequentialRunConfiguration) {
 			SequentialRunConfiguration runConf = (SequentialRunConfiguration) executionContext.getRunConfiguration();
 			

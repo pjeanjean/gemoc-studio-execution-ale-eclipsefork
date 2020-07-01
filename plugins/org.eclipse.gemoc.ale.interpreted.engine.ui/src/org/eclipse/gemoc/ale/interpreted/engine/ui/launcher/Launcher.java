@@ -32,7 +32,8 @@ import org.eclipse.gemoc.executionframework.debugger.AbstractGemocDebugger;
 import org.eclipse.gemoc.executionframework.debugger.GenericSequentialModelDebugger;
 import org.eclipse.gemoc.executionframework.debugger.OmniscientGenericSequentialModelDebugger;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
-import org.eclipse.gemoc.executionframework.engine.commons.GenericModelExecutionContext;
+import org.eclipse.gemoc.executionframework.engine.commons.sequential.ISequentialRunConfiguration;
+import org.eclipse.gemoc.executionframework.engine.commons.sequential.SequentialModelExecutionContext;
 import org.eclipse.gemoc.executionframework.engine.commons.sequential.SequentialRunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.ui.launcher.AbstractSequentialGemocLauncher;
 import org.eclipse.gemoc.executionframework.ui.views.engine.EnginesStatusView;
@@ -42,15 +43,27 @@ import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
 import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon;
 
-public class Launcher extends AbstractSequentialGemocLauncher<GenericModelExecutionContext<SequentialRunConfiguration>, SequentialRunConfiguration> {
+public class Launcher extends AbstractSequentialGemocLauncher {
 
 	public final static String TYPE_ID = Activator.PLUGIN_ID + ".launcher";
 	
 	@Override
-	protected AleEngine createExecutionEngine(SequentialRunConfiguration runConfiguration, ExecutionMode executionMode)
+	protected AleEngine createExecutionEngine(ISequentialRunConfiguration runConfiguration, ExecutionMode executionMode)
 			throws CoreException, EngineContextException {
 		
 		AleEngine engine = new AleEngine();
+		
+		Set<IInterpreterProvider> aleProviders = 
+				CompoundInterpreter
+				.INSTANCE
+				.getProviders()
+				.stream()
+				.filter(p -> p instanceof ALEInterpreterProvider)
+				.collect(Collectors.toSet());
+		aleProviders.forEach(p -> CompoundInterpreter.INSTANCE.removeInterpreter(p));
+		
+		IInterpreterProvider provider = new ALEInterpreterProvider(engine);
+		CompoundInterpreter.INSTANCE.registerProvider(provider); //Register ALE for Sirius
 		
 		GenericModelExecutionContext<SequentialRunConfiguration> executioncontext = new GenericModelExecutionContext<SequentialRunConfiguration>(runConfiguration, executionMode);
 		executioncontext.initializeResourceModel(); // load model
