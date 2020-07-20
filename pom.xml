@@ -5,20 +5,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.eclipse.gemoc.ale.interpreted.engine</groupId>
-	<artifactId>root</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<groupId>org.eclipse.gemoc.execution.ale</groupId>
+	<artifactId>org.eclipse.gemoc.execution.ale.root</artifactId>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 
 	<properties>
-		<tycho.version>1.5.1</tycho.version>
-		<xtend.version>2.14.0</xtend.version>
+		<tycho.version>1.7.0</tycho.version>
+		<xtend.version>2.21.0</xtend.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<eclipse-repo.url>http://download.eclipse.org/releases/photon</eclipse-repo.url>
-		<ale-repo.url>http://www.kermeta.org/ale-lang/updates/2019-11-13</ale-repo.url>
+		<eclipse-repo.url>http://download.eclipse.org/releases/2020-03</eclipse-repo.url>
+		<ale-repo.url>http://www.kermeta.org/ale-lang/updates/2020-07-17</ale-repo.url>
 		<k3-repo.url>http://www.kermeta.org/k3/update_2018-09-05</k3-repo.url>
-		<melange-repo.url>http://melange.inria.fr/updatesite/nightly/update_2018-09-06</melange-repo.url>
+		<melange-repo.url>http://melange.inria.fr/updatesite/nightly/update_2020-06-19</melange-repo.url>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<tycho.scmUrl>scm:git:https://github.com/eclipse/gemoc-studio-execution-ale.git</tycho.scmUrl>
@@ -28,7 +28,7 @@
 
 	<repositories>
 		<repository>
-			<id>eclipse-repo</id>
+			<id>Eclipse release</id>
 			<url>${eclipse-repo.url}</url>
 			<layout>p2</layout>
 		</repository>
@@ -38,12 +38,12 @@
 			<layout>p2</layout>
 		</repository>
 		<repository>
-            <id>kermeta-3</id>
+            <id>K3</id>
             <layout>p2</layout>
             <url>${k3-repo.url}</url>
         </repository>
         <repository>
-            <id>melange</id>
+            <id>Melange</id>
             <layout>p2</layout>
             <url>${melange-repo.url}</url>
         </repository>

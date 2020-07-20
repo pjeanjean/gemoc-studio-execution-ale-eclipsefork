@@ -5,10 +5,8 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.gemoc.ale.interpreted.engine.Helper;
@@ -45,10 +43,9 @@ public class SelectMainMethodDialog extends ElementListSelectionDialog {
 		}
 		final EClass finalTarget = target;
 		
-		Dsl environment = Helper.gemocDslToAleDsl(language);
+		IAleEnvironment environment = Helper.gemocDslToAleDsl(language);
 		
-		ALEInterpreter interpreter = new ALEInterpreter();
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParsedFile<ModelUnit>> parsedSemantics = environment.getBehaviors().getParsedFiles();
 		List<Method> mainOperations =
     		parsedSemantics
 	    	.stream()

@@ -29,10 +29,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.gemoc.ale.interpreted.engine.Helper;
@@ -519,12 +518,10 @@ public class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 				String tagetClassName = segments.get(segments.size() - 2);
 				org.eclipse.gemoc.dsl.Dsl language = DslHelper.load(_languageCombo.getText());
 
-				Dsl environment = Helper.gemocDslToAleDsl(language);
-				try(ALEInterpreter interpreter = new ALEInterpreter()) {
+				try(IAleEnvironment environment = Helper.gemocDslToAleDsl(language)) {
 					Optional<Method> initOperation = Optional.empty();
 					try {
-						List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
-								.parse(environment);
+						List<ParsedFile<ModelUnit>> parsedSemantics =environment.getBehaviors().getParsedFiles();
 						initOperation = parsedSemantics.stream().filter(sem -> sem.getRoot() != null)
 								.map(sem -> sem.getRoot()).flatMap(unit -> unit.getClassExtensions().stream())
 								.filter(xtdCls -> xtdCls.getBaseClass().getName().equals(tagetClassName))

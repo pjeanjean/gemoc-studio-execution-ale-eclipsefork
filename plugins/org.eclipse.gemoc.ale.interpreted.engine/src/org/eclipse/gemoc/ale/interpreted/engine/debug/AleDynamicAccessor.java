@@ -15,9 +15,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.DynamicFeatureRegistry;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.RuntimeInstanceHelper;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.notapi.DynamicFeatureRegistry;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.notapi.RuntimeInstanceHelper;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.gemoc.executionframework.debugger.IDynamicPartAccessor;
@@ -29,13 +29,13 @@ public class AleDynamicAccessor implements IDynamicPartAccessor{
 
 	Map<EClass, EClass> baseToRuntime;
 	
-	ALEInterpreter interpreter;
+	AleInterpreter interpreter;
 	
 	Map<EClass, Integer> counters = new HashMap<>();
 	
 	List<RuntimeClass> dynamicClasses = null; //new ArrayList<>();
 
-	public AleDynamicAccessor(ALEInterpreter interpreter, List<ModelUnit> allModelUnits) {
+	public AleDynamicAccessor(AleInterpreter interpreter, List<ModelUnit> allModelUnits) {
 		List<EClass> domain = 
 			interpreter
 			.getQueryEnvironment()

@@ -24,10 +24,13 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.PathsBasedAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
+import org.eclipse.emf.ecoretools.ale.ide.env.WithAbsoluteBehaviorPathsAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
@@ -107,11 +110,9 @@ public class ALEOperationalSemanticsViewGenerator implements OperationalSemantic
 	
 	private List<ModelUnit> loadModelUnits(List<String> syntaxes, List<String> semantics, ResourceSet rs) {
 		
-		ALEInterpreter interpreter = new ALEInterpreter();
-		
-		List<ParseResult<ModelUnit>> parsedSemantics = new ArrayList<>();
-		org.eclipse.emf.ecoretools.ale.core.parser.Dsl environment = new org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl(syntaxes, semantics);
-		parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment(),rs)).parse(environment);
+		List<ParsedFile<ModelUnit>> parsedSemantics = new ArrayList<>();
+		IAleEnvironment environment = new WithAbsoluteBehaviorPathsAleEnvironment(new PathsBasedAleEnvironment(syntaxes, semantics));
+		parsedSemantics = environment.getBehaviors().getParsedFiles();
 		
 		List<ModelUnit> res = 
 			parsedSemantics
@@ -120,14 +121,14 @@ public class ALEOperationalSemanticsViewGenerator implements OperationalSemantic
 			.map(elem -> elem.getRoot())
 			.collect(Collectors.toList());
 		
-		aleValidator = new BaseValidator(interpreter.getQueryEnvironment(), Arrays.asList());
-		List<ParseResult<ModelUnit>> validationInput = new ArrayList<>();
+		aleValidator = new BaseValidator(environment, Arrays.asList());
+		List<ParsedFile<ModelUnit>> validationInput = new ArrayList<>();
 		Resource r = new ResourceImpl(); 
 		for(ModelUnit unit : res) {
 			if(unit.eResource() ==  null) {
 				r.getContents().add(unit);
 			}
-			ParseResult<ModelUnit> mockParseRes = new ParseResult<ModelUnit>();
+			ParsedFile<ModelUnit> mockParseRes = new ParsedFile<ModelUnit>();
 			mockParseRes.setRoot(unit);
 			validationInput.add(mockParseRes);
 		}

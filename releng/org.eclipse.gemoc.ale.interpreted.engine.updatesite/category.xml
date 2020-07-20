@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.gemoc.ale.interpreted.engine.feature_1.0.1.qualifier.jar" id="org.eclipse.gemoc.ale.interpreted.engine.feature" version="1.0.1.qualifier">
+   <feature url="features/org.eclipse.gemoc.ale.interpreted.engine.feature_1.1.0.qualifier.jar" id="org.eclipse.gemoc.ale.interpreted.engine.feature" version="1.1.0.qualifier">
       <category name="ALE GEMOC Engine"/>
    </feature>
-   <feature url="features/org.eclipse.gemoc.ale.interpreted.engine.feature.source_1.0.1.qualifier.jar" id="org.eclipse.gemoc.ale.interpreted.engine.feature.source" version="1.0.1.qualifier">
+   <feature url="features/org.eclipse.gemoc.ale.interpreted.engine.feature.source_1.1.0.qualifier.jar" id="org.eclipse.gemoc.ale.interpreted.engine.feature.source" version="1.1.0.qualifier">
       <category name="ALE GEMOC Engine"/>
    </feature>
    <category-def name="ALE GEMOC Engine" label="ALE GEMOC Engine"/>

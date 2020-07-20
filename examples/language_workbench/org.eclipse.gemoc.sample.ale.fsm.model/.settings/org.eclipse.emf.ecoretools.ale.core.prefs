@@ -1,0 +1,5 @@
+ALE_SOURCE_FILES=platform\:/resource/org.eclipse.gemoc.sample.ale.fsm.model/model/fsm.ale
+CONFIGURED_FROM_DSL_FILE=false
+DSL_FILE_PATH=
+ECORE_MODEL_FILES=platform\:/resource/org.eclipse.gemoc.sample.ale.fsm.model/model/fsm.ecore
+eclipse.preferences.version=1

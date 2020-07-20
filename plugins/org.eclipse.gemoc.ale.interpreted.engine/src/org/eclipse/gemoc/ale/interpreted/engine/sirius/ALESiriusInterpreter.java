@@ -1,7 +1,7 @@
 package org.eclipse.gemoc.ale.interpreted.engine.sirius;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine;
@@ -13,10 +13,12 @@ import org.eclipse.acceleo.query.runtime.QueryParsing;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.OptimizedEvaluationResult;
 import org.eclipse.gemoc.ale.interpreted.engine.AleEngine;
 import org.eclipse.sirius.common.acceleo.aql.business.internal.AQLSiriusInterpreter;
 import org.eclipse.sirius.common.tools.api.interpreter.EvaluationException;
+import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 
 public class ALESiriusInterpreter extends AQLSiriusInterpreter {
 
@@ -39,7 +41,7 @@ public class ALESiriusInterpreter extends AQLSiriusInterpreter {
 		Map<String, Object> variables = getVariables();
 		variables.put("self", target); //$NON-NLS-1$
 
-		ALEInterpreter aleInterpreter = engine.getInterpreter();
+		AleInterpreter aleInterpreter = engine.getInterpreter();
 		if (aleInterpreter != null) {
 			IQueryEnvironment queryEnv = aleInterpreter.getQueryEnvironment();
 			if (queryEnv != null) {
@@ -55,38 +57,12 @@ public class ALESiriusInterpreter extends AQLSiriusInterpreter {
 				if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
 					diagnostic.merge(evalResult.getDiagnostic());
 				}
-
-				return new IEvaluationResult() {
-
-					@Override
-					public Object getValue() {
-						return evalResult.getResult();
-					}
-
-					@Override
-					public Diagnostic getDiagnostic() {
-						List<Diagnostic> children = diagnostic.getChildren();
-						if (children.size() == 1) {
-							return children.get(0);
-						} else {
-							return diagnostic;
-						}
-					}
-				};
+				return new OptimizedEvaluationResult(
+						Optional.ofNullable(evalResult.getResult()),
+						diagnostic);
 			}
 		}
 
-		return new IEvaluationResult() {
-			@Override
-			public Object getValue() {
-				return null;
-			}
-
-			@Override
-			public Diagnostic getDiagnostic() {
-				return new BasicDiagnostic();
-			}
-
-		};
+		return org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult.ofValue(null);
 	}
 }

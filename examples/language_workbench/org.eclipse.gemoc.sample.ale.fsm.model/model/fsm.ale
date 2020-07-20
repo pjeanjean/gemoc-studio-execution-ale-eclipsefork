@@ -27,7 +27,7 @@ open class StateMachine {
 	}
 }
 
-open class State {
+open class fsm.State {
 	
 	@step
 	def void step(String inputString) {
@@ -35,7 +35,8 @@ open class State {
 		// Get the valid transitions
 		Sequence(fsm::Transition) validTransitions := 
 			self.outgoingTransitions
-			->select(t | inputString.startsWith(t.input));
+			->select(t | inputString.startsWith(t.input))
+			->asSequence();
 
 		// Fire transition
 		validTransitions->at(1).fire();
