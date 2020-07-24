@@ -13,7 +13,6 @@ package org.eclipse.gemoc.ale.interpreted.engine.ui.launcher;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.function.BiPredicate;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -22,7 +21,8 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gemoc.ale.interpreted.engine.AleEngine;
 import org.eclipse.gemoc.ale.interpreted.engine.debug.AleDynamicAccessor;
-import org.eclipse.gemoc.ale.interpreted.engine.sirius.ALEInterpreterProvider;
+import org.eclipse.gemoc.ale.interpreted.engine.sirius.ALESiriusInterpreter;
+import org.eclipse.gemoc.ale.interpreted.engine.sirius.ALESiriusInterpreterProviderAddon;
 import org.eclipse.gemoc.ale.interpreted.engine.ui.Activator;
 import org.eclipse.gemoc.commons.eclipse.messagingsystem.api.MessagingSystem;
 import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
@@ -40,8 +40,7 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.trace.gemoc.traceaddon.GenericTraceEngineAddon;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
-import org.eclipse.sirius.common.tools.api.interpreter.CompoundInterpreter;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterProvider;
+import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon;
 
 public class Launcher extends AbstractSequentialGemocLauncher<GenericModelExecutionContext<SequentialRunConfiguration>, SequentialRunConfiguration> {
 
@@ -53,23 +52,19 @@ public class Launcher extends AbstractSequentialGemocLauncher<GenericModelExecut
 		
 		AleEngine engine = new AleEngine();
 		
-		Set<IInterpreterProvider> aleProviders = 
-				CompoundInterpreter
-				.INSTANCE
-				.getProviders()
-				.stream()
-				.filter(p -> p instanceof ALEInterpreterProvider)
-				.collect(Collectors.toSet());
-		aleProviders.forEach(p -> CompoundInterpreter.INSTANCE.removeInterpreter(p));
-		
-		IInterpreterProvider provider = new ALEInterpreterProvider(engine);
-		CompoundInterpreter.INSTANCE.registerProvider(provider); //Register ALE for Sirius
-		
 		GenericModelExecutionContext<SequentialRunConfiguration> executioncontext = new GenericModelExecutionContext<SequentialRunConfiguration>(runConfiguration, executionMode);
 		executioncontext.initializeResourceModel(); // load model
 		engine.initialize(executioncontext);
 		
-		//TODO: CompoundInterpreter.INSTANCE.removeInterpreter(provider);
+		
+		// declare this engine as available for ale: queries in the odesign
+		ALESiriusInterpreter.getDefault().addAleEngine(engine);
+		// create and add addon to unregister when then engine will be disposed
+		IEngineAddon aleRTDInterpreter = new ALESiriusInterpreterProviderAddon();
+		Activator.getDefault().getMessaggingSystem().debug("Enabled implicit addon: "+aleRTDInterpreter.getAddonID(), getPluginID());
+		engine.getExecutionContext().getExecutionPlatform().addEngineAddon(aleRTDInterpreter);
+	
+		
 		return engine;
 	}
 

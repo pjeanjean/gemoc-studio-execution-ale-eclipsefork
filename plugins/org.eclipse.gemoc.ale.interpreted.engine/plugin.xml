@@ -7,4 +7,11 @@
             class="org.eclipse.gemoc.ale.interpreted.engine.trace.ALEOperationalSemanticsViewGenerator">
       </org.eclipse.gemoc.opsemanticsview.gen>
    </extension>
+   <extension
+         id="org.eclipse.gemoc.ale.interpreted.engine.sirius.ALESiriusInterpreterProvider.id"
+         point="org.eclipse.sirius.common.expressionInterpreter">
+      <expressionInterpreterProvider
+            interpreterProviderClass="org.eclipse.gemoc.ale.interpreted.engine.sirius.ALESiriusInterpreterProvider">
+      </expressionInterpreterProvider>
+   </extension>
 </plugin>
