@@ -19,8 +19,8 @@
 		<ale-repo.url>http://www.kermeta.org/ale-lang/updates/2020-07-17</ale-repo.url>
 		<k3-repo.url>http://www.kermeta.org/k3/update_2018-09-05</k3-repo.url>
 		<melange-repo.url>http://melange.inria.fr/updatesite/nightly/update_2020-06-19</melange-repo.url>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<tycho.scmUrl>scm:git:https://github.com/eclipse/gemoc-studio-execution-ale.git</tycho.scmUrl>
 		
 		<maven.deploy.skip>false</maven.deploy.skip>
