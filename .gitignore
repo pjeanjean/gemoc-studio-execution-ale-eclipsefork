@@ -4,4 +4,4 @@ target/
 xtend-gen/
 **/.polyglot.*
 **/.META-INF_MANIFEST.MF
-
+**/.settings

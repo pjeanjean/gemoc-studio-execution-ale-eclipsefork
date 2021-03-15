@@ -53,19 +53,7 @@ public class Launcher extends AbstractSequentialGemocLauncher {
 		
 		AleEngine engine = new AleEngine();
 		
-		Set<IInterpreterProvider> aleProviders = 
-				CompoundInterpreter
-				.INSTANCE
-				.getProviders()
-				.stream()
-				.filter(p -> p instanceof ALEInterpreterProvider)
-				.collect(Collectors.toSet());
-		aleProviders.forEach(p -> CompoundInterpreter.INSTANCE.removeInterpreter(p));
-		
-		IInterpreterProvider provider = new ALEInterpreterProvider(engine);
-		CompoundInterpreter.INSTANCE.registerProvider(provider); //Register ALE for Sirius
-		
-		GenericModelExecutionContext<SequentialRunConfiguration> executioncontext = new GenericModelExecutionContext<SequentialRunConfiguration>(runConfiguration, executionMode);
+		SequentialModelExecutionContext executioncontext = new SequentialModelExecutionContext(runConfiguration, executionMode);
 		executioncontext.initializeResourceModel(); // load model
 		engine.initialize(executioncontext);
 		

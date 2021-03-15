@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package org.eclipse.gemoc.ale.interpreted.engine;
+package org.eclipse.gemoc.ale.interpreted.engine.repl.mep;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
+import org.eclipse.gemoc.ale.interpreted.engine.Helper;
 import org.eclipse.gemoc.executionframework.engine.commons.DslHelper;
 import org.eclipse.gemoc.executionframework.engine.commons.sequential.ISequentialModelExecutionContext;
 import org.eclipse.gemoc.executionframework.engine.commons.sequential.ISequentialRunConfiguration;
@@ -40,11 +42,13 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.trace.gemoc.api.IMultiDimensionalTraceAddon;
 import org.eclipse.gemoc.trace.gemoc.api.ITraceViewListener;
 import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon;
-import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 
 import com.google.common.collect.Lists;
 
-public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialModelExecutionContext<?>, ISequentialRunConfiguration> {
+import fr.inria.diverse.ale.repl.REPLInterpreter;
+import fr.inria.diverse.ale.repl.notebook.KernelServer;
+
+public class AleReplEngine extends AbstractSequentialExecutionEngine<ISequentialModelExecutionContext<?>, ISequentialRunConfiguration> {
 
 	/**
 	 * Root of the model
@@ -58,11 +62,15 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 	
 	List<Object> args;
 	
-	AleInterpreter interpreter;
+	REPLInterpreter interpreter;
 
 	private String mainOp;
 
 	private String initOp;
+	
+	volatile Semaphore terminatedSemaphore;
+	
+	private KernelServer jupyterKernelServer;
 	
 	@Override
 	public String engineKindName() {
@@ -72,7 +80,7 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 	@Override
 	protected void executeEntryPoint() {
 		if(interpreter != null && parsedSemantics != null) {
-			interpreter.addServiceListener(new IServiceCallListener() {
+			interpreter.getAleInterpreter().addServiceListener(new IServiceCallListener() {
 				
 				@Override
 				public void preCall(IService service, Object[] arguments) {
@@ -103,7 +111,7 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 			//Register animation updater
 			IMultiDimensionalTraceAddon traceCandidate = null;
 			List<IModelAnimator> animators = new ArrayList<>();
-			for (IEngineAddon addon : AleEngine.this.getExecutionContext().getExecutionPlatform().getEngineAddons()) {
+			for (IEngineAddon addon : AleReplEngine.this.getExecutionContext().getExecutionPlatform().getEngineAddons()) {
 				if(addon instanceof IMultiDimensionalTraceAddon) {
 					traceCandidate = (IMultiDimensionalTraceAddon) addon;
 				}
@@ -132,24 +140,10 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 				traceAddon.getTraceExplorer().registerCommand(diagramUpdater, () -> diagramUpdater.update());
 			}
 			
-			Method entryPoint = getMainOp().orElse(null);
-			if(interpreter.getCurrentEngine() != null) { //We ran @init method
-				EvaluationResult res = interpreter.getCurrentEngine().eval(caller, entryPoint, Arrays.asList());
-				manageDiagnostic(res);
-			}
-			else {
-				try {
-					IEvaluationResult res = interpreter.eval(caller, entryPoint, Arrays.asList());
-					//IEvaluationResult res = interpreter.eval(caller, entryPoint, Arrays.asList(), parsedSemantics);
-					interpreter.getLogger().diagnosticForHuman();
-					
-					if(res.getDiagnostic().getMessage() != null) {
-						System.out.println(res.getDiagnostic().getMessage());
-						throw new RuntimeException(res.getDiagnostic().getMessage());
-					}
-				} catch (ClosedAleEnvironmentException e) {
-					throw new RuntimeException(e.getMessage(),e);
-				}
+			try {
+				this.terminatedSemaphore.acquire();;
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e.getMessage(),e);
 			}
 			
 			if(traceAddon != null) {
@@ -160,7 +154,7 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 	}
 	
 	protected void manageDiagnostic(EvaluationResult res) {
-		interpreter.getLogger().diagnosticForHuman();
+		interpreter.getAleInterpreter().getLogger().diagnosticForHuman();
 		
 		if(res.getDiagnostic().getMessage() != null) {
 			System.out.println(res.getDiagnostic().getMessage());
@@ -170,27 +164,11 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 
 	@Override
 	protected void initializeModel() {
-		Optional<Method> init = getInitOp();
-		
-		if(interpreter != null && parsedSemantics != null && init.isPresent()) {
-			IEvaluationResult res;
-			try {
-				res = interpreter.eval(caller, init.get(), args);
-				//res = interpreter.eval(caller, init.get(), args, parsedSemantics);
-				if(res.getDiagnostic().getMessage() != null) {
-					System.out.println(res.getDiagnostic().getMessage());
-					interpreter.getLogger().notify(res.getDiagnostic());
-					interpreter.getLogger().diagnosticForHuman();
-					throw new RuntimeException(res.getDiagnostic().getMessage());
-				} else {
-					interpreter.getLogger().diagnosticForHuman();
-				}
-			} catch (ClosedAleEnvironmentException e) {
-				throw new RuntimeException(e.getMessage(),e);
-			}
-			
-			
-		}
+		this.terminatedSemaphore = new Semaphore(0);
+	}
+	
+	public void setKernelServer(KernelServer kernelServer) {
+		this.jupyterKernelServer = kernelServer;
 	}
 
 	@Override
@@ -217,8 +195,13 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 		initOp = runConf.getModelInitializationMethod();
 		
 		IAleEnvironment environment = Helper.gemocDslToAleDsl(language);
-		interpreter = new AleInterpreter(environment, environment.getContext(), true);
+		interpreter = new REPLInterpreter(environment, language.getName().toLowerCase());
 		parsedSemantics = new ImmutableBehaviors(environment.getBehaviors().getParsedFiles());
+		
+		if (this.jupyterKernelServer != null) {
+			this.jupyterKernelServer.setInterpreter(interpreter);
+			this.jupyterKernelServer.start();
+		}
 		
 		/*
 		 * Init interpreter
@@ -245,7 +228,7 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 				plugins.add(plugin);
 			}
 		}
-		interpreter.initScope(plugins, projects);
+		interpreter.getAleInterpreter().initScope(plugins, projects);
 	}
 	
 	protected org.eclipse.gemoc.dsl.Dsl findGemocDsl(ISequentialModelExecutionContext<?> executionContext) {
@@ -265,7 +248,7 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 	}
 	
 	public AleInterpreter getInterpreter() {
-		return interpreter;
+		return interpreter.getAleInterpreter();
 	}
 	
 	public Optional<Method> getMainOp() {
@@ -313,7 +296,7 @@ public class AleEngine extends AbstractSequentialExecutionEngine<ISequentialMode
 	@Override
 	protected void finishDispose() {
 		super.finishDispose();
-		interpreter.close();
+		interpreter.getAleInterpreter().close();
 	}
 	
 	
